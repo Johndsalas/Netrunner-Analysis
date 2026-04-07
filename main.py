@@ -2,15 +2,39 @@
 
 # imports
 import random
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# get list of every possible agenda point combination
-
+deck_size = 49
 agenda_point_total = 20
 max_ones = 15
 max_twos = 36
 max_threes = 12
+
+def main(deck_size, agenda_point_total, max_ones, max_twos, max_threes):
+
+    agenda_dict = {}
+    
+    # get list of every possible agenda point combination
+    agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
+
+    #loop through all agenda counts
+    for agenda_count in agenda_counts:
+
+        # generate agenda points deck list  
+        deck_list = get_deck_list(agenda_count, deck_size)
+
+        average_accesses =  np.mean([get_accesses(deck_list) for r in range(100_001)])
+
+        agenda_dict["counts"] = agenda_counts
+        
+        agenda_dict["total_number"] = sum(agenda_counts)
+        
+        agenda_dict["average_accesses"] = average_accesses
+
+    return pd.DataFrame(agenda_dict)
+
 
 def get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes):
 
@@ -36,31 +60,25 @@ def get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes):
     return counts_list
 
 
-agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
+def get_deck_list(agenda_count, deck_size):
 
-# get agenda point deck list
+    deck_list = []
 
-agenda_count = agenda_counts[-3]
+    threes = agenda_count[0]
 
-threes = agenda_count[0]
+    twos = agenda_count[1]
 
-twos = agenda_count[1]
+    ones = agenda_count[2]
 
-ones = agenda_count[2]
+    deck_list.extend([3] * threes)
 
-# 40-44/45-49/50-54
+    deck_list.extend([2] * twos)
 
-deck_size = 49
+    deck_list.extend([1] * ones)
 
-deck_list = []
+    deck_list.extend([0] * (deck_size - len(deck_list)))
 
-deck_list.extend([3] * threes)
-
-deck_list.extend([2] * twos)
-
-deck_list.extend([1] * ones)
-
-deck_list.extend([0] * (deck_size - len(deck_list)))
+    return deck_list
 
 
 def get_accesses(deck_list):
@@ -84,22 +102,6 @@ def get_accesses(deck_list):
     return accesses
 
 
-tests = []
+if __name__ == "__main__":
 
-for r in range(10_001):
-
-    tests.append(get_accesses(deck_list))
-
-chart = pd.Series(tests).value_counts()
-
-tests = pd.Series(tests)
-
-frequency_table = tests.value_counts().sort_index()
-
-# 4. Plot the results
-frequency_table.plot.bar(
-    xlabel='Number', 
-    ylabel='Frequency', 
-    title='Frequency Distribution'
-)
-plt.show()
+    print(main(deck_size, agenda_point_total, max_ones, max_twos, max_threes))
