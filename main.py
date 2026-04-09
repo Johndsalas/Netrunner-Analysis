@@ -1,9 +1,10 @@
-''' Script for simulating random acceses during a Netrunner game'''
+''' Script for simulating random accesses during a Netrunner game'''
 
 # imports
 import random
 import numpy as np
 import pandas as pd
+from statistics import mean
 import matplotlib.pyplot as plt
 
 deck_size = 49
@@ -14,7 +15,12 @@ max_threes = 12
 
 def main(deck_size, agenda_point_total, max_ones, max_twos, max_threes):
 
-    agenda_dict = {}
+    agenda_dict = {
+                    "counts" : [],
+                    #"total_number" : [],
+                    "average_accesses" : []
+
+    }
     
     # get list of every possible agenda point combination
     agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
@@ -25,13 +31,13 @@ def main(deck_size, agenda_point_total, max_ones, max_twos, max_threes):
         # generate agenda points deck list  
         deck_list = get_deck_list(agenda_count, deck_size)
 
-        average_accesses =  np.mean([get_accesses(deck_list) for r in range(100_001)])
+        accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
 
         agenda_dict["counts"] = agenda_counts
         
-        agenda_dict["total_number"] = sum(agenda_counts)
+        #agenda_dict["total_number"] = sum(agenda_counts)
         
-        agenda_dict["average_accesses"] = average_accesses
+        agenda_dict["average_accesses"].append(accesses)
 
     return pd.DataFrame(agenda_dict)
 
