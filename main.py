@@ -7,39 +7,70 @@ import pandas as pd
 from statistics import mean
 import matplotlib.pyplot as plt
 
-deck_size = 49
-agenda_point_total = 20
+deck_sizes = [40, 44, 45, 49, 50, 54]
 max_ones = 15
 max_twos = 36
 max_threes = 12
 
-def main(deck_size, agenda_point_total, max_ones, max_twos, max_threes):
+def main(deck_sizes, max_ones, max_twos, max_threes):
 
+
+    # get empty dictionary
     agenda_dict = {
-                    "counts" : [],
-                    #"total_number" : [],
+
+                    "deck_size" : [],
+                    "agenda_points" : [],
+                    "agenda_counts" : [],
+                    "num_agendas" : [],
                     "average_accesses" : []
 
     }
-    
-    # get list of every possible agenda point combination
-    agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
 
-    #loop through all agenda counts
-    for agenda_count in agenda_counts:
+    for deck_size in deck_sizes:
 
-        # generate agenda points deck list  
-        deck_list = get_deck_list(agenda_count, deck_size)
+        agenda_point_totals = get_agenda_point_totals(deck_size)
 
-        accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
+        for agenda_point_total in agenda_point_totals:
 
-        agenda_dict["counts"] = agenda_counts
-        
-        #agenda_dict["total_number"] = sum(agenda_counts)
-        
-        agenda_dict["average_accesses"].append(accesses)
+            # get list of every possible agenda point combination
+            agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
+
+            #loop through all agenda counts
+            for agenda_count in agenda_counts:
+
+                # generate agenda points deck list  
+                deck_list = get_deck_list(agenda_count, deck_size)
+
+                accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
+
+                agenda_dict["deck_size"].append(deck_size)
+
+                agenda_dict["agenda_points"].append(agenda_point_total)
+
+                agenda_dict["agenda_counts"].append(agenda_count)
+                
+                agenda_dict["num_agendas"].append(sum(agenda_count))
+                
+                agenda_dict["average_accesses"].append(accesses)
 
     return pd.DataFrame(agenda_dict)
+
+
+def get_agenda_point_totals(deck_size):
+
+    if deck_size >= 40 and deck_size <= 44:
+
+        agenda_point_totals = [18, 19]
+
+    if deck_size >= 45 and deck_size <= 49:
+
+        agenda_point_totals = [20, 21]
+
+    if deck_size >= 50 and deck_size <= 54:
+
+        agenda_point_totals = [22, 23]
+
+    return agenda_point_totals
 
 
 def get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes):
@@ -57,7 +88,7 @@ def get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes):
             for ones in range(agenda_points_after_twos + 1):
 
                 if ((3*threes) + (2*twos) + ones == agenda_point_total and 
-                    threes <= max_ones and
+                    threes <= max_threes and
                     twos <= max_twos and
                     ones <= max_ones):
 
@@ -110,4 +141,4 @@ def get_accesses(deck_list):
 
 if __name__ == "__main__":
 
-    print(main(deck_size, agenda_point_total, max_ones, max_twos, max_threes))
+    print(main(deck_sizes, max_ones, max_twos, max_threes))
