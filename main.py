@@ -1,4 +1,12 @@
-''' Script for simulating random accesses during a Netrunner game'''
+''' Script for generating a dataset for the average number of random accesses a runner needs to win a game of Netrunner 
+    based on a lorge number of simulated games
+       
+    Data set includes:
+    All max and min deck sizes for the corporation player
+    All possible agenda value counts given the constraints of the current card pool (April 21, 2026)
+    All possibel agenda counts where "let Them Dream" included in the corperation deck the maximum number of times 
+    effectively reducing the number of points that the runner can steal during a game
+'''
 
 # imports
 import random
@@ -7,17 +15,29 @@ import pandas as pd
 from statistics import mean
 import matplotlib.pyplot as plt
 
+# max and min possible deck sizes for the corporation player
 deck_sizes = [40, 44, 45, 49, 50, 54]
+
+# maximum number of 1 2 and 3 point agendas that can be included based on current card pool and banned list (April 21)
 max_ones = 15
 max_twos = 36
 max_threes = 12
 
 def main(deck_sizes, max_ones, max_twos, max_threes):
-
+    '''Generates a dataset showing the average number of random accesses a runner needs to win a game of Netrunner 
+       based on a lorge number of simulated games
+       
+       Data set includes:
+       All max and min deck sizes for the corporation player
+       All possible agenda value counts given the constraints of the current card pool (April 21, 2026)
+       All possibel agenda counts where "let Them Dream" included in the corperation deck the maximum number of times 
+       effectively reducing the number of points that the runner can steal during a game
+       '''
 
     # get empty dictionary
-    agenda_dict = {
+    agenda_dictionary = {
 
+                    "agenda_type" : [],
                     "deck_size" : [],
                     "agenda_points" : [],
                     "agenda_counts" : [],
@@ -26,34 +46,31 @@ def main(deck_sizes, max_ones, max_twos, max_threes):
 
     }
 
+    # for each dack size
     for deck_size in deck_sizes:
 
+        # get normal agenda point total
         agenda_point_totals = get_agenda_point_totals(deck_size)
 
+        # for each agenda point total
         for agenda_point_total in agenda_point_totals:
 
             # get list of every possible agenda point combination
             agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
 
-            #loop through all agenda counts
-            for agenda_count in agenda_counts:
+            ltd_agenda_counts = get_ltd_agenda_counts(agenda_counts)
 
-                # generate agenda points deck list  
-                deck_list = get_deck_list(agenda_count, deck_size)
+            # add normal agenda info to dictionary
+            agenda_type = "Normal"
+        
+            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_counts, deck_size, agenda_type)
+        
+            # add Let Them Dream agenda info to dictionary
+            agenda_type = "Let Them Dream"
 
-                accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
+            agenda_dictionary = fill_dictionary(agenda_dictionary, ltd_agenda_counts, deck_size, agenda_type)
 
-                agenda_dict["deck_size"].append(deck_size)
-
-                agenda_dict["agenda_points"].append(agenda_point_total)
-
-                agenda_dict["agenda_counts"].append(agenda_count)
-                
-                agenda_dict["num_agendas"].append(sum(agenda_count))
-                
-                agenda_dict["average_accesses"].append(accesses)
-
-    return pd.DataFrame(agenda_dict)
+    return pd.DataFrame(agenda_dictionary)
 
 
 def get_agenda_point_totals(deck_size):
@@ -95,6 +112,65 @@ def get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes):
                     counts_list.append([threes, twos, ones])
 
     return counts_list
+
+
+def get_ltd_agenda_counts(agenda_counts):
+
+    ltd_agenda_counts = []
+    
+    for agenda_count in agenda_counts:
+        
+        threes = agenda_count[0]
+        twos = agenda_count[1]
+        ones = agenda_count[2]
+    
+        if twos > 0 and twos < 4:
+
+            ones += twos
+            twos -= twos
+            
+            ltd_agenda_counts.append([threes,twos,ones])
+
+        elif twos >= 4:
+
+            ones += 3
+            twos -= 3
+
+            ltd_agenda_counts.append([threes,twos,ones])
+
+        else:
+
+            ltd_agenda_counts.append([threes,twos,ones])
+    
+    return ltd_agenda_counts
+
+
+def fill_dictionary(agenda_dictionary, agenda_counts, deck_size, agenda_type):
+
+    #loop through normal agenda counts and add information to dictionary
+    for agenda_count in agenda_counts:
+    
+        # generate agenda points deck list  
+        deck_list = get_deck_list(agenda_count, deck_size)
+    
+        accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
+
+        agenda_point_total = (3 * agenda_count[0]) + (2 * agenda_count[1]) + agenda_count[2]
+    
+        # add information to dictionary
+        agenda_dictionary["agenda_type"].append(agenda_type)
+    
+        agenda_dictionary["deck_size"].append(deck_size)
+    
+        agenda_dictionary["agenda_points"].append(agenda_point_total)
+    
+        agenda_dictionary["agenda_counts"].append(agenda_count)
+        
+        agenda_dictionary["num_agendas"].append(sum(agenda_count))
+        
+        agenda_dictionary["average_accesses"].append(accesses)
+    
+    return agenda_dictionary
 
 
 def get_deck_list(agenda_count, deck_size):
