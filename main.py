@@ -63,12 +63,12 @@ def main(deck_sizes, max_ones, max_twos, max_threes):
             # add normal agenda info to dictionary
             agenda_type = "Normal"
         
-            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_counts, deck_size, agenda_type)
+            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, deck_size, agenda_type)
         
             # add Let Them Dream agenda info to dictionary
             agenda_type = "Let Them Dream"
 
-            agenda_dictionary = fill_dictionary(agenda_dictionary, ltd_agenda_counts, deck_size, agenda_type)
+            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, ltd_agenda_counts, deck_size, agenda_type)
 
     return pd.DataFrame(agenda_dictionary)
 
@@ -145,7 +145,7 @@ def get_ltd_agenda_counts(agenda_counts):
     return ltd_agenda_counts
 
 
-def fill_dictionary(agenda_dictionary, agenda_counts, deck_size, agenda_type):
+def fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, deck_size, agenda_type):
 
     #loop through normal agenda counts and add information to dictionary
     for agenda_count in agenda_counts:
@@ -154,8 +154,6 @@ def fill_dictionary(agenda_dictionary, agenda_counts, deck_size, agenda_type):
         deck_list = get_deck_list(agenda_count, deck_size)
     
         accesses = round(mean([get_accesses(deck_list) for r in range(100_001)]))
-
-        agenda_point_total = (3 * agenda_count[0]) + (2 * agenda_count[1]) + agenda_count[2]
     
         # add information to dictionary
         agenda_dictionary["agenda_type"].append(agenda_type)
