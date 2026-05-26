@@ -40,6 +40,7 @@ def main(deck_sizes, max_ones, max_twos, max_threes):
                     "agenda_type" : [],
                     "deck_size" : [],
                     "agenda_points" : [],
+                    "let_them_dream_count": [],
                     "agenda_counts" : [],
                     "num_agendas" : [],
                     "average_accesses" : []
@@ -58,18 +59,20 @@ def main(deck_sizes, max_ones, max_twos, max_threes):
             # get list of every possible agenda point combination
             agenda_counts = get_agenda_counts(agenda_point_total, max_ones, max_twos, max_threes)
 
-            ltd_agenda_counts = get_ltd_agenda_counts(agenda_counts)
+            # agenda count and number of Let Them Dream agendas in the deck
+            ltd_agenda_counts, ltd = get_ltd_agenda_counts(agenda_counts)
 
-            # add normal agenda info to dictionary
-            agenda_type = "Normal"
-        
-            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, deck_size, agenda_type)
-        
             # add Let Them Dream agenda info to dictionary
             agenda_type = "Let Them Dream"
 
-            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, ltd_agenda_counts, deck_size, agenda_type)
+            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, ltd_agenda_counts, ltd, deck_size, agenda_type)
 
+            # add normal agenda info to dictionary
+            agenda_type = "Normal"
+            ltd = 0
+
+            agenda_dictionary = fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, ltd, deck_size, agenda_type)
+        
     return pd.DataFrame(agenda_dictionary)
 
 
@@ -126,15 +129,19 @@ def get_ltd_agenda_counts(agenda_counts):
     
         if twos > 0 and twos < 4:
 
-            ones += twos
-            twos -= twos
+            ltd =  twos
+            
+            ones += ltd
+            twos -= ltd
             
             ltd_agenda_counts.append([threes,twos,ones])
 
-        elif twos >= 4:
+        elif twos > 3:
 
-            ones += 3
-            twos -= 3
+            ltd = 3
+
+            ones += ltd
+            twos -= ltd
 
             ltd_agenda_counts.append([threes,twos,ones])
 
@@ -142,10 +149,10 @@ def get_ltd_agenda_counts(agenda_counts):
 
             ltd_agenda_counts.append([threes,twos,ones])
     
-    return ltd_agenda_counts
+    return ltd_agenda_counts, ltd
 
 
-def fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, deck_size, agenda_type):
+def fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, ltd,  deck_size, agenda_type):
 
     #loop through normal agenda counts and add information to dictionary
     for agenda_count in agenda_counts:
@@ -165,6 +172,8 @@ def fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, deck_s
         agenda_dictionary["agenda_counts"].append(agenda_count)
         
         agenda_dictionary["num_agendas"].append(sum(agenda_count))
+
+        agenda_dictionary["let_them_dream_count"].append(ltd)
         
         agenda_dictionary["average_accesses"].append(accesses)
     
@@ -215,4 +224,5 @@ def get_accesses(deck_list):
 
 if __name__ == "__main__":
 
-    print(main(deck_sizes, max_ones, max_twos, max_threes))
+    df = main(deck_sizes, max_ones, max_twos, max_threes)
+    df.to_excel("accesses.xlsx", index=False)
