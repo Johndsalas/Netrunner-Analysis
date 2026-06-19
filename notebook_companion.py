@@ -171,7 +171,7 @@ def get_margin_chart(df):
     axes[2].set_xticks([50, 54])
     axes[2].set_xlim(49, 55)
 
-    fig.suptitle('Access Threshold Range Shifts Up When Using the Four Card Margin', fontweight='bold')
+    fig.suptitle('Access Threshold Range Shifts Up When Using the 4 Card Margin', fontweight='bold')
 
     fig.supxlabel('Deck Size')
     fig.supylabel('Access Threshold')
@@ -225,7 +225,7 @@ def get_my_min_agenda_chart(df):
 
         axes[i].set(xlabel='', ylabel='')
 
-    fig.suptitle('Access Threshold Range Shifts Down When not Using Minimum Agenda Points', fontweight='bold')
+    fig.suptitle('Access Threshold Range Shifts Down When Extra Agenda Point is Included', fontweight='bold')
     fig.supxlabel('Agenda Points')
     fig.supylabel('Access Threshold')
 
@@ -279,15 +279,16 @@ def get_my_threes_chart(df):
     df.plot.scatter(x='three_point_agendas', 
                            y='access_threshold', 
                            color='#779ECB',
-                           title='Number of Three-Point Agendas Has a Minor Positive Effect on Agenda Threshold')
+                           title='Count of Three-Point Agendas Has a Small Positive Effect on Agenda Threshold')
 
-    plt.xlabel('Three-Point Agendas')
+    plt.title('Three-Point Agenda Count has a Small Positive Relationship with Agenda Threshold', fontweight='bold')
+    plt.xlabel('Three-Point Agenda Count')
     plt.ylabel('Access Threshold')
 
 
-def get_my_example_df(df):
+def get_my_first_outlier_df(df):
 
-    # get dataframe of all corp builds with zero three-point agendas and an access threshold of 18
+
     df_example = df[(df.access_threshold == 18) & (df.three_point_agendas == 0)]
 
     df_example = df_example[['agenda_type', 
@@ -299,3 +300,70 @@ def get_my_example_df(df):
                              'access_threshold']]
     
     return df_example
+
+
+def get_my_ones_chart(df):
+
+    colors = {
+                    19 : '#E05A47',
+                    18 : '#E05A47',
+
+                    17 : '#779ECB',
+                    16 : '#779ECB',
+                    15 : '#779ECB',
+                    14 : '#779ECB'
+
+             }
+
+    sns.scatterplot(data=df,
+                    x='one_point_agendas', 
+                    y='access_threshold',
+                    hue = 'access_threshold',
+                    palette=colors)
+
+    plt.legend([], [], frameon=False)
+
+    plt.title('Access Threshold Above 17 Only Possible for Builds with Less than Three One-Point Agendas', fontweight='bold')
+
+    plt.xlabel('One-Point Agenda Count')
+    plt.ylabel('Access Threshold')
+
+    plt.tight_layout()
+    plt.show()
+
+
+def get_my_second_outlier_df(df):
+
+
+    df = df[(df.access_threshold == 14) & (df.one_point_agendas == 0)]
+
+    df = df[['agenda_type', 
+             'deck_size', 
+             'agenda_points', 
+             'one_point_agendas', 
+             'two_point_agendas', 
+             'three_point_agendas', 
+             'access_threshold']]
+    
+    return df
+
+
+def get_my_ltd_data(df):
+
+
+    ax = sns.scatterplot(data=df,
+                         x= 'ltd_count', 
+                         y='access_threshold',
+                         color= '#779ECB')
+
+
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
+
+    plt.xlabel('Let Them Dream Count')
+    plt.ylabel('Access Threshold')
+
+    plt.title('Builds with Grater than 17 Access Threshold Must Contain Fewer than Three One-Point Agendas ', fontweight='bold')
+
+    plt.tight_layout()
+    plt.show()
