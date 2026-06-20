@@ -135,7 +135,7 @@ def get_min_deck_chart(df):
     df_min = df[df.deck_size.isin([40, 45, 50])]
 
     df_min.plot.scatter(x='deck_size', y='access_threshold',figsize=(4, 5), color='#779ECB')
-    plt.title('Minimum Deck Size Caps Builds Maximum Access Threshold', fontweight='bold', pad=15)
+    plt.title('Minimum Deck Size Caps Maximum Access Threshold at 18', fontweight='bold', pad=15)
     plt.xticks([40, 45, 50])
     plt.xlim(37.5, 52.5)
 
@@ -171,7 +171,7 @@ def get_margin_chart(df):
     axes[2].set_xticks([50, 54])
     axes[2].set_xlim(49, 55)
 
-    fig.suptitle('Access Threshold Range Shifts Up When Using the 4 Card Margin', fontweight='bold')
+    fig.suptitle('Range of Access Thresholds Shift Up When Using the 4 Card Margin', fontweight='bold')
 
     fig.supxlabel('Deck Size')
     fig.supylabel('Access Threshold')
@@ -225,7 +225,7 @@ def get_my_min_agenda_chart(df):
 
         axes[i].set(xlabel='', ylabel='')
 
-    fig.suptitle('Access Threshold Range Shifts Down When Extra Agenda Point is Included', fontweight='bold')
+    fig.suptitle('Range of Access Thresholds Shift Down When an Extra Agenda Point is Included', fontweight='bold')
     fig.supxlabel('Agenda Points')
     fig.supylabel('Access Threshold')
 
@@ -277,9 +277,9 @@ def get_my_agenda_count_chart(df):
 def get_my_threes_chart(df):
 
     df.plot.scatter(x='three_point_agendas', 
-                           y='access_threshold', 
-                           color='#779ECB',
-                           title='Count of Three-Point Agendas Has a Small Positive Effect on Agenda Threshold')
+                    y='access_threshold', 
+                    color='#779ECB',
+                    title='Count of Three-Point Agendas Has a Small Positive Effect on Agenda Threshold')
 
     plt.title('Three-Point Agenda Count has a Small Positive Relationship with Agenda Threshold', fontweight='bold')
     plt.xlabel('Three-Point Agenda Count')
@@ -291,8 +291,7 @@ def get_my_first_outlier_df(df):
 
     df_example = df[(df.access_threshold == 18) & (df.three_point_agendas == 0)]
 
-    df_example = df_example[['agenda_type', 
-                             'deck_size', 
+    df_example = df_example[['deck_size', 
                              'agenda_points', 
                              'three_point_agendas', 
                              'two_point_agendas', 
@@ -323,7 +322,7 @@ def get_my_ones_chart(df):
 
     plt.legend([], [], frameon=False)
 
-    plt.title('Access Threshold Above 17 Only Possible for Builds with Less than Three One-Point Agendas', fontweight='bold')
+    plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 17', fontweight='bold')
 
     plt.xlabel('One-Point Agenda Count')
     plt.ylabel('Access Threshold')
@@ -363,7 +362,7 @@ def get_my_ltd_data(df):
     plt.xlabel('Let Them Dream Count')
     plt.ylabel('Access Threshold')
 
-    plt.title('Builds with Grater than 17 Access Threshold Must Contain Fewer than Three One-Point Agendas ', fontweight='bold')
+    plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 18', fontweight='bold')
 
     plt.tight_layout()
     plt.show()
