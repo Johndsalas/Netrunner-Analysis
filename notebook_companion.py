@@ -1,4 +1,4 @@
-''' Stores code imported to Netrunner Analysis: Access Threshold notebook to reduce clutter '''
+''' File containing helper functions for netrunner_agendas_and_accesses notebook '''
 
 # imports
 import pandas as pd
@@ -58,9 +58,14 @@ def get_my_data():
 
 
 def get_my_thresholds(df_normal, df_ltd):
+    '''
+    plots and displays count of possible builds by access threshold
+    '''
 
+    # set framework for charts
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 5), sharey=True)
 
+    # set colors for right chart
     colors1 = { '14' :   'skyblue',
                 '15' : '#779ECB',
                 '16' : '#779ECB',
@@ -68,10 +73,12 @@ def get_my_thresholds(df_normal, df_ltd):
                 '18' :   'skyblue',
                 '19' :   'skyblue',}
     
+    # plot right chart
     sns.countplot(x='access_threshold', data=df_normal, ax=ax1, palette=colors1)
     ax1.set_title('Normal Agendas')
     ax1.set(xlabel='', ylabel='')
 
+    # set colors for left chart
     colors2 = { '15' :   'skyblue',
                 '16' :   'skyblue',
                 '17' : '#779ECB',
@@ -79,23 +86,27 @@ def get_my_thresholds(df_normal, df_ltd):
                 '19' : '#779ECB',
                 '20' : '#779ECB',}
 
+    # plot right chart
     sns.countplot(x='access_threshold', data=df_ltd, ax=ax2, palette=colors2)
     ax2.set_title('Let Them Dream')
     ax2.set(xlabel='', ylabel='')
 
+    # set super title and labels
     fig.suptitle('Strong Contrast Between Common and Uncommon Access Threshold Values', fontweight='bold')
     fig.supxlabel('Access Threshold')
     fig.supylabel('Count of Distinct Legal Builds')
 
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_my_density_chart(df):
     '''
-        Plots agenda density chart using dataframe
+        Plots and disploys agenda density chart using dataframe
     '''
-    #lable colors by clusters
+
+    # lable clusters by color
     colors = {
                 0.407407 : '#E09ECB',
                 0.408163 : '#E09ECB',
@@ -125,52 +136,72 @@ def get_my_density_chart(df):
     plt.xlabel("Agenda Density")
     plt.ylabel("Access Threshold")
 
+    # remove legend
     plt.legend([], [], frameon=False)
 
     plt.show()
 
 
 def get_min_deck_chart(df):
+    '''
+    Plots and displays scatterplot of possible access thresholds at each minimum deck size
+    '''
 
+    # Get rows using minimum deck size
     df_min = df[df.deck_size.isin([40, 45, 50])]
 
+    # plot chart
     df_min.plot.scatter(x='deck_size', y='access_threshold',figsize=(4, 5), color='#779ECB')
     plt.title('Minimum Deck Size Caps Maximum Access Threshold at 18', fontweight='bold', pad=15)
+    
+    # set ticks and tick limits
     plt.xticks([40, 45, 50])
     plt.xlim(37.5, 52.5)
 
     plt.yticks(range(14, 20)) 
     plt.ylim(13, 19.5)  
 
+    # set labels
     plt.xlabel("Agenda Density")
     plt.ylabel("Access Threshold")
 
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_margin_chart(df):
+    '''
+    Plots and displays charts comparing possible access thresholds at each minimum deck size with decks that use the four card margin
+    '''
 
+
+    # get dataframes containing the correct card count
     df_small = df[df['deck_size'].between(40,44)]
     df_mid = df[df.deck_size.between(45,49)]
     df_lg = df[df.deck_size.between(50,54)]
 
+    # set framework for charts
     fig, axes = plt.subplots(ncols=3, figsize=(6,5), constrained_layout=True, sharey=True)
 
+    # plot first chart
     df_small.plot.scatter(x='deck_size', y='access_threshold', title='40-44', xlabel='', ylabel='', color='#779ECB', ax=axes[0])
     axes[0].set_xticks([40, 44])
     axes[0].set_xlim(39, 45)
     axes[0].set_ylim(13, 21)
     axes[0].set_yticks(range(14, 21))
 
+    # plot second chart
     df_mid.plot.scatter(x='deck_size', y='access_threshold', title='45-49', xlabel='', ylabel='', color='#779ECB', ax=axes[1])
     axes[1].set_xticks([45, 49])
     axes[1].set_xlim(44, 50)
 
+    # plot third chart
     df_lg.plot.scatter(x='deck_size', y='access_threshold', title='50-54', xlabel='', ylabel='', color='#779ECB', ax=axes[2])
     axes[2].set_xticks([50, 54])
     axes[2].set_xlim(49, 55)
 
+    # set super labels and title
     fig.suptitle('Range of Access Thresholds Shift Up When Using the 4 Card Margin', fontweight='bold')
 
     fig.supxlabel('Deck Size')
@@ -178,12 +209,15 @@ def get_margin_chart(df):
 
     fig.align_ylabels()
 
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_my_min_agenda_chart(df):
-
+    '''
+    Plots and displayes charts comparing possible access thresholds at each deck size using the minimum agenda point total and thoes adding an extra agenda point
+    '''
     # set plot framework
     fig, axes = plt.subplots(nrows=1, ncols=6, figsize=(10,4), sharey=True)
 
@@ -225,16 +259,22 @@ def get_my_min_agenda_chart(df):
 
         axes[i].set(xlabel='', ylabel='')
 
+    # set super labels and title
     fig.suptitle('Range of Access Thresholds Shift Down When an Extra Agenda Point is Included', fontweight='bold')
     fig.supxlabel('Agenda Points')
     fig.supylabel('Access Threshold')
 
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_my_agenda_count_chart(df):
+    '''
+    Displayes chart of possible access thresholds at each agenda count
+    '''
 
+    # label clusters in different colors
     colors = {
                 6  : '#E05A47',
         
@@ -259,50 +299,60 @@ def get_my_agenda_count_chart(df):
                 19 : '#5C6B73'
             }
 
+    # plot chart
     sns.scatterplot(data=df,
                     x='agenda_count', 
                     y='access_threshold',
                     hue='agenda_count',
                     palette=colors)
+    
+    # add title, labels, and remove legeond
+    plt.title('Number of Agendas Set a Range of 2-4 Values for Access Threshold', fontweight='bold')
 
     plt.xlabel('Agenda Count')
     plt.ylabel('Access Threshold')
+
     plt.legend([], [], frameon=False)
 
-    plt.title('Number of Agendas Set a Range of 2-4 Values for Access Threshold', fontweight='bold')
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_my_threes_chart(df):
+    '''
+    Plots and displays chart of possible access threholds by number of one-point agendas
+    '''
 
+    # plot chart 
     df.plot.scatter(x='three_point_agendas', 
                     y='access_threshold', 
                     color='#779ECB',
                     title='Count of Three-Point Agendas Has a Small Positive Effect on Agenda Threshold')
-
+    
+    # set title and labels
     plt.title('Three-Point Agenda Count has a Small Positive Relationship with Agenda Threshold', fontweight='bold')
     plt.xlabel('Three-Point Agenda Count')
     plt.ylabel('Access Threshold')
 
 
 def get_my_first_outlier_df(df):
+    '''
+    Displayes dataframe of outliers for three-point agendas
+    '''
 
-
+    # get desiered data
     df_example = df[(df.access_threshold == 18) & (df.three_point_agendas == 0)]
-
-    df_example = df_example[['deck_size', 
-                             'agenda_points', 
-                             'three_point_agendas', 
-                             'two_point_agendas', 
-                             'one_point_agendas', 
-                             'access_threshold']]
     
     return df_example
 
 
 def get_my_ones_chart(df):
+    '''
+    Plots and displays chart of possible access threholds by number of one-point agendas
+    '''
 
+    # label cluster in red other in blue
     colors = {
                     19 : '#E05A47',
                     18 : '#E05A47',
@@ -314,55 +364,57 @@ def get_my_ones_chart(df):
 
              }
 
+    # plot chart
     sns.scatterplot(data=df,
                     x='one_point_agendas', 
                     y='access_threshold',
                     hue = 'access_threshold',
                     palette=colors)
 
-    plt.legend([], [], frameon=False)
-
+    # set title, lables, and remove legend
     plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 17', fontweight='bold')
 
     plt.xlabel('One-Point Agenda Count')
     plt.ylabel('Access Threshold')
 
+    plt.legend([], [], frameon=False)
+
+    # make pretty and display
     plt.tight_layout()
     plt.show()
 
 
 def get_my_second_outlier_df(df):
+    '''
+    Displayes dataframe of outliers for one-point agendas
+    '''
 
-
+    # get desired data 
     df = df[(df.access_threshold == 14) & (df.one_point_agendas == 0)]
-
-    df = df[['agenda_type', 
-             'deck_size', 
-             'agenda_points', 
-             'one_point_agendas', 
-             'two_point_agendas', 
-             'three_point_agendas', 
-             'access_threshold']]
     
     return df
 
 
 def get_my_ltd_data(df):
+    '''
+    Plots and displays a chart of possible access thresholds by number of two-point agendas replaced by Let Them Dream agendas
+    '''
 
-
+    # plot chart
     ax = sns.scatterplot(data=df,
                          x= 'ltd_count', 
                          y='access_threshold',
                          color= '#779ECB')
 
-
+    # set ticks to intigers
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-
+    # set labels and Title
     plt.xlabel('Let Them Dream Count')
     plt.ylabel('Access Threshold')
 
     plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 18', fontweight='bold')
 
+    # make pretty and display
     plt.tight_layout()
     plt.show()
