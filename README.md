@@ -1,9 +1,10 @@
 # Netrunner: Agendas and Accesses
 
+## Description
 Netrunner is a two player competitive card game supported by [Null Signal Games](https://nullsignal.games/about/netrunner/) where players take on the role of a corporation or runner (hacker) in a dystopian cyber punk setting. Before a game begins each player constructs their own unique deck by choosing which cards to include from a pool of available cards. The corporation's goal is to play, advance, and score agenda cards that are protected by ice (Intrusion Countermeasures Electronics). The runner's goal is to steal agenda cards by getting past the corporation's ice in order to access cards in the corporation's deck. When runners access cards they often do so with limited or no information about what card they will be accessing, meaning that when runners access a card they have a simi-random chance of accessing an agenda they can steal. Depending on the odds of accessing an agenda and the value of the agenda the runner will need to make a certain number of accesses during a game to steal the 7 agenda points they need to win the game. I am calling the average number of unique accesses a runner needs to win against a corporation deck the access threshold for that deck. In this study I will be looking at how deckbuilding decisions affect the access threshold.
 
 
-# Goal
+## Goal
 
 I have 4 research questions in mind for this study.
 
@@ -15,9 +16,9 @@ I have 4 research questions in mind for this study.
 
 4) What deck building recommendations can I make based on my findings?
 
-[**Click here to go to the Full Analysis Notebook**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/Netrunner_Agenda_Points_Analysis.ipynb)
+[**Click here to go to the Full Analysis Notebook**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas%20and_accesses.ipynb)
 
-# Analysis Methodology
+## Analysis Methodology
 
 * Develop a possibility matrix for all legal combinations of minimum deck size, use of the four card margin, agenda point total, and distribution of 1, 2, and 3 point agendas for corporation decks
 * Each feature is represented as a column in a dataframe and each row represents one unique combination of these features
@@ -25,7 +26,7 @@ I have 4 research questions in mind for this study.
 * Calculate access threshold for each row using digital experiments
 * Examine how different feature values shift the possibility matrix to determine the effect of those features on access threshold
 
-# Methodology of Digital Experiments to Determine Access Threshold
+## Methodology of Digital Experiments to Determine Access Threshold
 
 * Access threshold is the average number of unique random accesses a runner needs to steal 7 points worth of agendas and win the game
 * The access threshold of each combination of features or row was calculated using the following method
@@ -38,7 +39,7 @@ I have 4 research questions in mind for this study.
    * To ensure a large sample size and reduce statistical error repeat the experiment 100,000 times and get the average result
    * Round result to the nearest whole number for ease of discussion and communicability of result
 
-# Let Them Dream Methodology
+## Let Them Dream Methodology
 
 * Let Them Dream is a two-point agenda with an ability that reduces its vale by 1 if it is in the runner's score area effectively making it a two-point agenda for the corporation and a one-point agenda for the runner
 * To measure the impact of Let Them Dream agendas on access threshold additional rows were added to simulate replacing ‘normal’ two-point agendas with maximum allowable number of ‘Let Them Dream’ agendas
@@ -53,13 +54,13 @@ I have 4 research questions in mind for this study.
        * It does not account for replacements swapping 2 one-point agendas for 1 Let Them Dream
        * It does now account for replacements swapping 1 three-point agenda for 1 one-point agenda and 1 Let Them Dream
 
-# Final Dataframe
+## Final Dataframe
 * 8 columns and 928 total rows
    * Each column representing a feature of the deck
    * 496 rows representing all legal combinations of deck features
    * 432 rows that simulate replacing ‘normal’ two-point agendas with maximum allowable number of ‘Let Them Dream’ agendas
 
-# Data Dictionary
+## Data Dictionary
 
 |Feature|Definition|
 |---|---|
@@ -73,8 +74,8 @@ I have 4 research questions in mind for this study.
 |Agenda Density| Agenda Points Divided by Deck Size |
 |Access Threshold| Average number of unique cards a runner must access win the game |
 
-# Lexicon
-
+## Lexicon
+|Term | Definition |
 |---|---|
 |Runner | The player playing the runner |
 |Corporation or Corp | The player playing the corporation |
@@ -82,7 +83,7 @@ I have 4 research questions in mind for this study.
 | Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but ony gives the runner 1 point if it is stolen|
 |Unique Blind Access| Unknown cards that a runner acceses for the first time|
 
-# Summary of Findings
+## Summary of Findings
 
 Overall this study provides a framework for understanding the impact deckbuilding decisions have on access threshold. The range of impact is much smaller than I thought it would be originally indicating that access threshold should be deprioritised in favor of including cards that are more synergistic to a given build. Still, knowing what to deprioritise, when deck building, is valuable information. Additionally, in cases where decisions have little or no effect on synergy, such as using the 4 card margin and choosing between cards of comparable synergy choosing the option that increases access threshold can grant an advantage. This study also provides 'receipts' for commonly given deck building advice regarding access threshold (usually referred to as agenda density) confirming and in many cases quantifying the impact of these suggestions. Below are specific findings and recommendations.
 
@@ -104,7 +105,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
 **Let Them Dream**
 * Replacing normal 2-point agendas with Let Them Dream agendas will increase access threshold by about 1 access per replacement
 
-# Recommendations
+## Recommendations
 
 **Consider access threshold as a factor when optimizing a build**
 **It should not be the main focus of a build**
@@ -129,7 +130,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
    * The card is neutral cost 1 influence per copy in any deck it is included in
    * It competes for deck slots with other agendas that might provide more synergy
 
-# Steps to Reproduce
+## Steps to Reproduce
 
 You will need access the the following python libraries:
 * Pandas
@@ -148,7 +149,7 @@ You will need access the the following python libraries:
 2) Run notebook
    * you will need notebook_companion.py in the same file in order to run the notebook
 
-# Next Steps
+## Next Steps
 
 * Develop a more robust version of the possibility matrix for builds including Let Them Dream agendas expanding from the 2-point agenda replacements to all possible builds
  * Develop a deeper understanding of the amount of impact changes in agenda concentration have on access threshold
