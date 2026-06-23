@@ -107,9 +107,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
 
 ## Recommendations
 
-**Consider access threshold as a factor when optimizing a build**
-**It should not be the main focus of a build**
-
+**Consider access threshold as a factor when optimizing a build not as the main focus**
 * Access threshold has a range of 7 accesses that are determined through deck building decisions with most normal builds falling between 15 and 17. This limits the potential impact of optimizing for access threshold.
 * A higher access threshold will help you edge out victories in games with competitive boardstates, however making the runner access a few extra cards is unlikely to turn the tide if your boardstate is poor
 
