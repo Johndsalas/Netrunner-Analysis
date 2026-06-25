@@ -6,6 +6,8 @@ Netrunner is a two player competitive card game supported by [Null Signal Games]
 
 ## Goal
 
+**The goal of this project is to determine the effect of different deckbuilding decisions on access threshold**
+
 I have 4 research questions in mind for this study.
 
 1) What is the effect of agenda density (number of agenda points in a deck relative to the total number of cards) on access threshold?
