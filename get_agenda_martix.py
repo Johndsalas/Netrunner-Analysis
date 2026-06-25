@@ -240,9 +240,9 @@ def fill_dictionary(agenda_dictionary, agenda_point_total, agenda_counts, ltd_nu
 
 def get_deck_list(agenda_count, deck_size):
     '''
-    Takes in agenda count and deck size
-    
-    Returns list of agenda values for each card in a deck constructed using the input information 
+        Takes in agenda count and deck size
+        
+        Returns list of agenda values for each card in a deck constructed using the input information 
     '''
 
     deck_list = []
@@ -269,9 +269,9 @@ def get_deck_list(agenda_count, deck_size):
 
 def get_accesses(deck_list):
     '''
-    Takes in a list of agenda point values for a given deck
-    Performs digital experiment to calculate access threshold for the deck
-    Returns the access threshold for the deck
+        Takes in a list of agenda point values for a given deck
+        Performs digital experiment to calculate access threshold for the deck
+        Returns the access threshold for the deck
     '''
 
     points = 0

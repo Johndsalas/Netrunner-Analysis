@@ -77,7 +77,7 @@ I have 4 research questions in mind for this study.
 |Corporation or Corp | The player playing the corporation |
 |Build | A particular set of cards chosen for a player's deck |
 | Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but only gives the runner 1 point if it is stolen |
-|Unique Blind Acces| When the runner accesses an unknown card for the first time |
+|Unique Blind Access| When the runner accesses an unknown card for the first time |
 | Agenda Density | The number of agenda points in a deck relative to the number of cards |
 |Agenda Concentration | The degree to which agenda points are concentrated in high point cards |
 
