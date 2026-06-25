@@ -9,11 +9,12 @@ from matplotlib.ticker import MaxNLocator
 
 def get_my_data():
     '''
-    read in agenda matrix data
-    return full dataframe 
-    and two subset dataframes seperating 
-    normal and let them dream agenda types 
+        read in agenda matrix data
+        return full dataframe 
+        and two subset dataframes separating 
+        normal and let them dream agenda types 
     '''
+
 
     # read in data
     df = pd.read_excel('agenda_matrix.xlsx')
@@ -59,7 +60,7 @@ def get_my_data():
 
 def get_my_thresholds(df_normal, df_ltd):
     '''
-    plots and displays count of possible builds by access threshold
+        Plots and displays count of possible builds by access threshold
     '''
 
     # set framework for charts
@@ -106,7 +107,7 @@ def get_my_density_chart(df):
         Plots and disploys agenda density chart using dataframe
     '''
 
-    # lable clusters by color
+    # label clusters by color
     colors = {
                 0.407407 : '#E09ECB',
                 0.408163 : '#E09ECB',
@@ -144,7 +145,7 @@ def get_my_density_chart(df):
 
 def get_min_deck_chart(df):
     '''
-    Plots and displays scatterplot of possible access thresholds at each minimum deck size
+        Plots and displays scatterplot of possible access thresholds at each minimum deck size
     '''
 
     # Get rows using minimum deck size
@@ -172,7 +173,7 @@ def get_min_deck_chart(df):
 
 def get_margin_chart(df):
     '''
-    Plots and displays charts comparing possible access thresholds at each minimum deck size with decks that use the four card margin
+        Plots and displays charts comparing possible access thresholds at each minimum deck size with decks that use the four card margin
     '''
 
 
@@ -216,8 +217,10 @@ def get_margin_chart(df):
 
 def get_my_min_agenda_chart(df):
     '''
-    Plots and displayes charts comparing possible access thresholds at each deck size using the minimum agenda point total and thoes adding an extra agenda point
+        Plots and displays charts comparing possible access thresholds at each deck size using the minimum agenda point total 
+        and those adding an extra agenda point
     '''
+
     # set plot framework
     fig, axes = plt.subplots(nrows=1, ncols=6, figsize=(10,4), sharey=True)
 
@@ -271,7 +274,7 @@ def get_my_min_agenda_chart(df):
 
 def get_my_agenda_count_chart(df):
     '''
-    Displayes chart of possible access thresholds at each agenda count
+        Displays chart of possible access thresholds at each agenda count
     '''
 
     # label clusters in different colors
@@ -306,7 +309,7 @@ def get_my_agenda_count_chart(df):
                     hue='agenda_count',
                     palette=colors)
     
-    # add title, labels, and remove legeond
+    # add title, labels, and remove legend
     plt.title('Number of Agendas Set a Range of 2-4 Values for Access Threshold', fontweight='bold')
 
     plt.xlabel('Agenda Count')
@@ -321,7 +324,7 @@ def get_my_agenda_count_chart(df):
 
 def get_my_threes_chart(df):
     '''
-    Plots and displays chart of possible access threholds by number of one-point agendas
+    Plots and displays chart of possible access thresholds by number of one-point agendas
     '''
 
     # plot chart 
@@ -338,10 +341,10 @@ def get_my_threes_chart(df):
 
 def get_my_first_outlier_df(df):
     '''
-    Displayes dataframe of outliers for three-point agendas
+    Displays dataframe of outliers for three-point agendas
     '''
 
-    # get desiered data
+    # get desired data
     df_example = df[(df.access_threshold == 18) & (df.three_point_agendas == 0)]
     
     return df_example
@@ -371,7 +374,7 @@ def get_my_ones_chart(df):
                     hue = 'access_threshold',
                     palette=colors)
 
-    # set title, lables, and remove legend
+    # set title, labels, and remove legend
     plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 17', fontweight='bold')
 
     plt.xlabel('One-Point Agenda Count')
@@ -386,7 +389,7 @@ def get_my_ones_chart(df):
 
 def get_my_second_outlier_df(df):
     '''
-    Displayes dataframe of outliers for one-point agendas
+    Displays dataframe of outliers for one-point agendas
     '''
 
     # get desired data 
@@ -406,7 +409,7 @@ def get_my_ltd_data(df):
                          y='access_threshold',
                          color= '#779ECB')
 
-    # set ticks to intigers
+    # set ticks to integers
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
     # set labels and Title
