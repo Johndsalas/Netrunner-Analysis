@@ -41,7 +41,7 @@ I have 4 research questions in mind for this study.
 
 ## Let Them Dream Methodology
 
-* Let Them Dream is a two-point agenda with an ability that reduces its vale by 1 if it is in the runner's score area effectively making it a two-point agenda for the corporation and a one-point agenda for the runner
+* Let Them Dream is a two-point agenda with an ability that reduces its value by 1 if it is in the runner's score area effectively making it a two-point agenda for the corporation and a one-point agenda for the runner
 * To measure the impact of Let Them Dream agendas on access threshold additional rows were added to simulate replacing ‘normal’ two-point agendas with maximum allowable number of ‘Let Them Dream’ agendas
    * For each row with one or more two-point agendas an additional row was added replacing up to a maximum of three two-point agendas with Let Them Dream Agendas
    * A maximum of 3 replacements are made because the maximum number of card copies (by title) that can be included in a deck is 3
@@ -53,12 +53,6 @@ I have 4 research questions in mind for this study.
        * It does not account for replacing less than the maximum (Example has 2 two-point agendas but only replaces one)
        * It does not account for replacements swapping 2 one-point agendas for 1 Let Them Dream
        * It does now account for replacements swapping 1 three-point agenda for 1 one-point agenda and 1 Let Them Dream
-
-## Final Dataframe
-* 8 columns and 928 total rows
-   * Each column representing a feature of the deck
-   * 496 rows representing all legal combinations of deck features
-   * 432 rows that simulate replacing ‘normal’ two-point agendas with maximum allowable number of ‘Let Them Dream’ agendas
 
 ## Data Dictionary
 
@@ -72,7 +66,17 @@ I have 4 research questions in mind for this study.
 |Three-Point Agendas| Count of agendas with a value of 3 |
 |LTD Count| Count of "Let Them Dream" agendas |
 |Agenda Density| Agenda Points Divided by Deck Size |
-|Access Threshold| Average number of unique cards a runner must access win the game |
+|Access Threshold| Average number of unique blind accesses the runner needs to win the game |
+
+## Lexicon
+|Term | Definition |
+|---|---|
+|Runner | The player playing the runner |
+|Corporation or Corp | The player playing the corporation |
+|Build | A particular set of cards chosen for a player's deck |
+| Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but only gives the runner 1 point if it is stolen|
+|Unique Blind Acces| a unknown card that a runner accesses for the first time |
+
 
 ## Lexicon
 |Term | Definition |
