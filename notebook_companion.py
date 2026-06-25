@@ -346,6 +346,13 @@ def get_my_first_outlier_df(df):
 
     # get desired data
     df_example = df[(df.access_threshold == 18) & (df.three_point_agendas == 0)]
+
+    df_example = df_example[['deck_size',
+                             'agenda_points',
+                             'one_point_agendas',
+                             'two_point_agendas',
+                             'three_point_agendas',
+                             'access_threshold']]
     
     return df_example
 
@@ -393,9 +400,16 @@ def get_my_second_outlier_df(df):
     '''
 
     # get desired data 
-    df = df[(df.access_threshold == 14) & (df.one_point_agendas == 0)]
+    df_example = df[(df.access_threshold == 14) & (df.one_point_agendas == 0)]
+
+    df_example = df_example[['deck_size',
+                            'agenda_points',
+                            'one_point_agendas',
+                            'two_point_agendas',
+                            'three_point_agendas',
+                            'access_threshold']]
     
-    return df
+    return df_example
 
 
 def get_my_ltd_data(df):

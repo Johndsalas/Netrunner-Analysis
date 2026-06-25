@@ -8,21 +8,21 @@ Netrunner is a two player competitive card game supported by [Null Signal Games]
 
 I have 4 research questions in mind for this study.
 
-1) What is the effect of agenda density (The number of agenda points in a deck relative to the total number of cards) on access threshold?
+1) What is the effect of agenda density (number of agenda points in a deck relative to the total number of cards) on access threshold?
 
-2) What is the effect of agenda concentration (the number of agenda points in a deck relative to the total number of agenda cards)on access threshold?
+2) What is the effect of agenda concentration (how concentrated the agenda points are among the agenda cards in a deck) on access threshold?
 
 3) What is the effect of Let Them Dream agendas on access threshold?
 
 4) What deck building recommendations can I make based on my findings?
 
-[**Click here to go to the Full Analysis Notebook**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas%20and_accesses.ipynb)
+[**Click Here for the Full Analysis**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas%20and_accesses.ipynb)
 
 ## Analysis Methodology
 
 * Develop a possibility matrix for all legal combinations of minimum deck size, use of the four card margin, agenda point total, and distribution of 1, 2, and 3 point agendas for corporation decks
 * Each feature is represented as a column in a dataframe and each row represents one unique combination of these features
-* Add a additional rows to the matrix by replacing the maximum number of normal two-point agendas with Let Them Dream agendas
+* Add additional rows to the matrix by replacing the maximum number of normal two-point agendas with Let Them Dream agendas
 * Calculate access threshold for each row using digital experiments
 * Examine how different feature values shift the possibility matrix to determine the effect of those features on access threshold
 
@@ -74,32 +74,25 @@ I have 4 research questions in mind for this study.
 |Runner | The player playing the runner |
 |Corporation or Corp | The player playing the corporation |
 |Build | A particular set of cards chosen for a player's deck |
-| Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but only gives the runner 1 point if it is stolen|
-|Unique Blind Acces| a unknown card that a runner accesses for the first time |
-
-
-## Lexicon
-|Term | Definition |
-|---|---|
-|Runner | The player playing the runner |
-|Corporation or Corp | The player playing the corporation |
-|Build | A particular set of cards chosen for a player's deck|
-| Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but ony gives the runner 1 point if it is stolen|
-|Unique Blind Access| Unknown cards that a runner acceses for the first time|
+| Let Them Dream | Title of an agenda card, This card counts as a two-point agenda for the corporation but only gives the runner 1 point if it is stolen |
+|Unique Blind Acces| When the runner accesses an unknown card for the first time |
+| Agenda Density | The number of agenda points in a deck relative to the number of cards |
+|Agenda Concentration | The degree to which agenda points are concentrated in high point cards |
 
 ## Summary of Findings
 
-Overall this study provides a framework for understanding the impact deckbuilding decisions have on access threshold. The range of impact is much smaller than I thought it would be originally indicating that access threshold should be deprioritised in favor of including cards that are more synergistic to a given build. Still, knowing what to deprioritise, when deck building, is valuable information. Additionally, in cases where decisions have little or no effect on synergy, such as using the 4 card margin and choosing between cards of comparable synergy choosing the option that increases access threshold can grant an advantage. This study also provides 'receipts' for commonly given deck building advice regarding access threshold (usually referred to as agenda density) confirming and in many cases quantifying the impact of these suggestions. Below are specific findings and recommendations.
+Overall this study provides a framework for understanding the impact deckbuilding decisions have on access threshold. The range of impact is much smaller than I originally thought. This limited range of impact indicates that access threshold should be deprioritised in favor of including cards that are more synergistic to a given build. Still, knowing what to deprioritise, when deckbuilding, is valuable information. Additionally, in cases where decisions have little or no effect on synergy, such as using the 4 card margin and choosing between cards of comparable synergy selecting the option that increases access threshold will grant an advantage. This study also provides 'receipts' for commonly given deckbuilding advice. It confirms and, in many cases, quantiifies the impact of these suggestions. Below are specific findings and recommendations.
 
 **General**
-* Access thresholds across all possible builds have a range of 14 to 20 meaning that deck building decisions have a 6 access influence on access threshold
+* Access thresholds across all possible builds have a range of 14 to 20 meaning that deck building decisions have a 7 access influence on access threshold
 * Agenda density has a negative relationship on access threshold
 * Builds with a higher concentration of agenda points have higher access thresholds
 * Agenda density has a stronger effect on access threshold than agenda concentration
- **Agenda Density**
-* Minimum deck size has a negligible effect on access threshold
-* Using the 4 card margin increases access threshold by about 1-2 accesses
-* Builds using the minimum agenda point total have an access threshold of about 1 access higher than build including an extra agenda point  
+
+**Agenda Density**
+* Choice of minimum deck size has a negligible effect on access threshold
+* The 4 card margin increases access threshold by about 1-2 accesses
+* Builds using the minimum agenda point total have an access threshold of about 1 access higher than builds including an extra agenda point  
 
 **Agenda Concentration**
 * There is a negative relationship between agenda count and access threshold setting a range of 2-4 possible values
@@ -111,29 +104,29 @@ Overall this study provides a framework for understanding the impact deckbuildin
 
 ## Recommendations
 
-**Consider access threshold as a factor when optimizing a build not as the main focus**
+**Consider Access Threshold as a Factor when Optimizing a Build not as Major Focus**
 * Access threshold has a range of 7 accesses that are determined through deck building decisions with most normal builds falling between 15 and 17. This limits the potential impact of optimizing for access threshold.
 * A higher access threshold will help you edge out victories in games with competitive boardstates, however making the runner access a few extra cards is unlikely to turn the tide if your boardstate is poor
 
-**The grand majority of builds will benefit from using the 4 card margin and building to the lowest possible agenda point total**
+**Use the 4 Card Margin and Build to the Lower Agenda Point Total**
 * Using the 4 card margin will increase your access threshold by 1-2 accesses while granting you additional resources
    * The cost of slightly reduced consistency due to the increased deck size is usually negligible
 * Using the minimum number of agenda points will increase your access threshold by about 1 access compared to builds that include an extra agenda point
 
-**Use high value agenda cards instead of low value agenda cards where it will not disrupt your deck's synergy**
-*  Higher value agendas slightly increase access threshold and open additional deckbuilding slots by concentrating agenda points in one card
-* Higher point agendas can be harder to score. Carefully consider how your build wis going to score high point agendas before including them
+**Use High Value Agenda Cards Where it Will not Disrupt the Deck's Synergy**
+* Higher value agendas slightly increase access threshold and open additional deckbuilding slots by concentrating agenda points in one card
+* Higher point agendas can also be harder to score 
+* Carefully consider how your build is going to score high point agendas before including them
 
-**Strongly consider including Let Them Dream in your build**
+**Strongly Consider Including Let Them Dream in your Build**
 * Replacing normal 2-point agendas with Let Them Dream agendas will increase access threshold by about 1 access per replacement
-   * Effectively it lowers the number of agenda points available for the runner to steal by 1 per inclusion
-   * Its ability also allows you to 'shuffle away' agendas from HQ and 'hide' high point agendas on the bottom of R&D further reducing the odds of the runner stealing agenda during a blind access
+   * It effectively lowers the number of agenda points available for the runner to steal by 1 per inclusion
+   * Its ability also allows you to 'shuffle away' agendas from HQ and 'hide' high point agendas on the bottom of R&D further reducing the odds of the runner stealing an agenda during a blind access
 * There are reasons not to include Let Them Dream in your build
-   * The card is neutral cost 1 influence per copy in any deck it is included in
+   * The card is neutral and cost 1 influence per copy in any deck it is included in
    * It competes for deck slots with other agendas that might provide more synergy
 
 ## Steps to Reproduce
-
 You will need access the the following python libraries:
 * Pandas
 * Seaborn
@@ -142,7 +135,7 @@ You will need access the the following python libraries:
 * Warnings
 
 1) Clone this repository
-2) (Optional) If you would like to generate your own agenda matrix
+2) (Optional) If you would like to generate your own corporation deck matrix
    * Delete agenda_matrix.xlsx from cloned repository
    * Run get_agena_matrix.py to generate a new agenda_matrix.xlsx
        * Deleting the old file first instead of overriding gives a visual indicator that get_matrix.py has run correctly do to the appearance of a new file
@@ -152,7 +145,6 @@ You will need access the the following python libraries:
    * you will need notebook_companion.py in the same file in order to run the notebook
 
 ## Next Steps
-
 * Develop a more robust version of the possibility matrix for builds including Let Them Dream agendas expanding from the 2-point agenda replacements to all possible builds
  * Develop a deeper understanding of the amount of impact changes in agenda concentration have on access threshold
    * Develop a better metric for understanding agenda concentration across all possible builds
