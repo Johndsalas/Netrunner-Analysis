@@ -1,7 +1,7 @@
 # Netrunner: Agendas and Accesses
 
 ## Description
-Netrunner is a two player competitive card game supported by [Null Signal Games](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas%20and_accesses.ipynb) where players take on the role of a corporation or runner (hacker) in a dystopian cyber punk setting. Before a game begins each player constructs their own unique deck by choosing which cards to include from a pool of available cards. The corporation's goal is to play, advance, and score agenda cards that are protected by ice (Intrusion Countermeasures Electronics). The runner's goal is to steal agenda cards by getting past the corporation's ice in order to access cards in the corporation's deck. When runners access cards they often do so with limited or no information about what card they will be accessing, meaning that when runners access a card they have a simi-random chance of accessing an agenda they can steal. Depending on the odds of accessing an agenda and the value of the agenda the runner will need to make a certain number of accesses during a game to steal the 7 agenda points they need to win the game. I am calling the average number of unique accesses a runner needs to win against a corporation deck the access threshold for that deck. In this study I will be looking at how deckbuilding decisions affect the access threshold.
+Netrunner is a two player competitive card game supported by [Null Signal Games](https://nullsignal.games/) where players take on the role of a corporation or runner (hacker) in a dystopian cyberpunk setting. Before a game begins each player constructs their own unique deck by choosing which cards to include from a pool of available cards. The corporation's goal is to play, advance, and score agenda cards that are protected by ice (Intrusion Countermeasures Electronics). The runner's goal is to steal agenda cards by getting past the corporation's ice in order to access cards in the corporation's deck. When runners access cards they often do so with limited or no information about what card they will be accessing, meaning that when runners access a card they have a semi-random chance of accessing an agenda they can steal. Depending on the odds of accessing an agenda and the value of the agenda the runner will need to make a certain number of accesses during a game to steal the 7 agenda points they need to win the game. I am calling the average number of unique accesses a runner needs to win against a corporation deck the access threshold for that deck. In this study I will be looking at how deckbuilding decisions affect the access threshold.
 
 
 ## Goal
@@ -18,11 +18,11 @@ I have 4 research questions in mind for this study.
 
 4) What deck building recommendations can I make based on my findings?
 
-[**Click Here for the Full Analysis**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas%20and_accesses.ipynb)
+[**Click Here for the Full Analysis**](https://github.com/Johndsalas/Netrunner-Analysis/blob/main/netrunner_agendas_and_accesses.ipynb)
 
 ## Analysis Methodology
 
-* Develop a possibility matrix for all legal combinations of minimum deck size, use of the four card margin, agenda point total, and distribution of 1, 2, and 3 point agendas for corporation decks
+* Develop a constructed matrix of combinations of minimum deck size, use of the four card margin, agenda point total, and distribution of 1, 2, and 3 point agendas for corporation decks
 * Each feature is represented as a column in a dataframe and each row represents one unique combination of these features
 * Add additional rows to the matrix by replacing the maximum number of normal two-point agendas with Let Them Dream agendas
 * Calculate access threshold for each row using digital experiments
@@ -54,7 +54,7 @@ I have 4 research questions in mind for this study.
    * This matrix only includes possibilities replacing the maximum number normal two-point agendas
        * It does not account for replacing less than the maximum (Example has 2 two-point agendas but only replaces one)
        * It does not account for replacements swapping 2 one-point agendas for 1 Let Them Dream
-       * It does now account for replacements swapping 1 three-point agenda for 1 one-point agenda and 1 Let Them Dream
+       * It does not account for replacements swapping 1 three-point agenda for 1 one-point agenda and 1 Let Them Dream
 
 ## Data Dictionary
 
@@ -83,10 +83,10 @@ I have 4 research questions in mind for this study.
 
 ## Summary of Findings
 
-Overall this study provides a framework for understanding the impact deckbuilding decisions have on access threshold. The range of impact is much smaller than I originally thought. This limited range of impact indicates that access threshold should be deprioritised in favor of including cards that are more synergistic to a given build. Still, knowing what to deprioritise, when deckbuilding, is valuable information. Additionally, in cases where decisions have little or no effect on synergy, such as using the 4 card margin and choosing between cards of comparable synergy selecting the option that increases access threshold will grant an advantage. This study also provides 'receipts' for commonly given deckbuilding advice. It confirms and, in many cases, quantiifies the impact of these suggestions. Below are specific findings and recommendations.
+Overall this study provides a framework for understanding the impact deckbuilding decisions have on access threshold. The range of impact is much smaller than I originally thought. This limited range of impact indicates that access threshold should be deprioritised in favor of including cards that are more synergistic to a given build. Still, knowing what to deprioritise, when deckbuilding, is valuable information. Additionally, in cases where decisions have little or no effect on synergy, such as using the 4 card margin and choosing between cards of comparable synergy selecting the option that increases access threshold will grant an advantage. This study also provides 'receipts' for commonly given deckbuilding advice. It confirms and, in many cases, quantifies the impact of these suggestions. Below are specific findings and recommendations.
 
 **General**
-* Access thresholds across all possible builds have a range of 14 to 20 meaning that deck building decisions have a 7 access influence on access threshold
+* Access thresholds across the constructed matrix have a range of 14 to 20 meaning that deck building decisions have a 6 access influence on access threshold
 * Agenda density has a negative relationship on access threshold
 * Builds with a higher concentration of agenda points have higher access thresholds
 * Agenda density has a stronger effect on access threshold than agenda concentration
@@ -99,7 +99,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
 **Agenda Concentration**
 * There is a negative relationship between agenda count and access threshold setting a range of 2-4 possible values
 * There is a small positive relationship between three-point agenda count and access threshold
-* There is a small negative relationship between one-point agenda count and a access threshold
+* There is a small negative relationship between one-point agenda count and access threshold
 
 **Let Them Dream**
 * Replacing normal 2-point agendas with Let Them Dream agendas will increase access threshold by about 1 access per replacement
@@ -107,7 +107,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
 ## Recommendations
 
 **Consider Access Threshold as a Factor when Optimizing a Build not as Major Focus**
-* Access threshold has a range of 7 accesses that are determined through deck building decisions with most normal builds falling between 15 and 17. This limits the potential impact of optimizing for access threshold.
+* Access threshold has a range of 6 accesses that are determined through deck building decisions with most normal builds falling between 15 and 17. This limits the potential impact of optimizing for access threshold.
 * A higher access threshold will help you edge out victories in games with competitive boardstates, however making the runner access a few extra cards is unlikely to turn the tide if your boardstate is poor
 
 **Use the 4 Card Margin and Build to the Lower Agenda Point Total**
@@ -129,7 +129,7 @@ Overall this study provides a framework for understanding the impact deckbuildin
    * It competes for deck slots with other agendas that might provide more synergy
 
 ## Steps to Reproduce
-You will need access the the following python libraries:
+You will need access to the following python libraries:
 * Pandas
 * Seaborn
 * Matplotlib
@@ -139,11 +139,11 @@ You will need access the the following python libraries:
 1) Clone this repository
 2) (Optional) If you would like to generate your own corporation deck matrix
    * Delete agenda_matrix.xlsx from cloned repository
-   * Run get_agena_matrix.py to generate a new agenda_matrix.xlsx
-       * Deleting the old file first instead of overriding gives a visual indicator that get_matrix.py has run correctly do to the appearance of a new file
-       * **Digital Experiments are UNSEEDED** your results may very slightly
+   * Run get_agenda_matrix.py to generate a new agenda_matrix.xlsx
+       * Deleting the old file first instead of overriding gives a visual indicator that get_agenda_matrix.py has run correctly due to the appearance of a new file
+       * **Digital Experiments are UNSEEDED** your results may vary slightly
            * this is unlikely due to the large sample size of the experiments
-2) Run notebook
+3) Run notebook
    * you will need notebook_companion.py in the same file in order to run the notebook
 
 ## Next Steps
@@ -151,4 +151,4 @@ You will need access the the following python libraries:
  * Develop a deeper understanding of the amount of impact changes in agenda concentration have on access threshold
    * Develop a better metric for understanding agenda concentration across all possible builds
        *  possible metric could include total agenda points / count of agendas
-* Examine changes across multiple features to determine how changes in one feature may effect changes in another feature in regard to their effect on access threshold
+* Examine changes across multiple features to determine how changes in one feature may affect changes in another feature in regard to their effect on access threshold

@@ -95,7 +95,7 @@ def get_my_thresholds(df_normal, df_ltd):
     # set super title and labels
     fig.suptitle('Strong Contrast Between Common and Uncommon Access Threshold Values', fontweight='bold')
     fig.supxlabel('Access Threshold')
-    fig.supylabel('Count of Distinct Legal Builds')
+    fig.supylabel('Count of Distinct Builds')
 
     # make pretty and display
     plt.tight_layout()
@@ -163,7 +163,7 @@ def get_min_deck_chart(df):
     plt.ylim(13, 19.5)  
 
     # set labels
-    plt.xlabel("Agenda Density")
+    plt.xlabel("Deck Size")
     plt.ylabel("Access Threshold")
 
     # make pretty and display
@@ -331,10 +331,10 @@ def get_my_threes_chart(df):
     df.plot.scatter(x='three_point_agendas', 
                     y='access_threshold', 
                     color='#779ECB',
-                    title='Count of Three-Point Agendas Has a Small Positive Effect on Agenda Threshold')
+                    title='Count of Three-Point Agendas Has a Small Positive Effect on Access Threshold')
     
     # set title and labels
-    plt.title('Three-Point Agenda Count has a Small Positive Relationship with Agenda Threshold', fontweight='bold')
+    plt.title('Three-Point Agenda Count has a Small Positive Relationship with Access Threshold', fontweight='bold')
     plt.xlabel('Three-Point Agenda Count')
     plt.ylabel('Access Threshold')
 
@@ -430,7 +430,7 @@ def get_my_ltd_data(df):
     plt.xlabel('Let Them Dream Count')
     plt.ylabel('Access Threshold')
 
-    plt.title('Builds with more than 2 One-Point Agendas Cap Access Threshold at 18', fontweight='bold')
+    plt.title('Each Let Them Dream Replacement Raises Access Threshold by About 1', fontweight='bold')
 
     # make pretty and display
     plt.tight_layout()
